@@ -14,9 +14,9 @@ everything that resides in the database, will be persistent as this is kept in y
 the same holds for all (uploaded or edited) files under ./tl_files.  
 but, be aware, that with this setup, consequently installed contao extensions via the Backend, will NOT persist, the same is true for templates !  
 in order to make these persistent, too, be sure to:  
-copy directorys inside docker that have changed (templates, system/modules) to your local contao_data folder, e.g.
-docker cp contao2:/var/www/html/templates ./contao_data  
-once done, you can stop docker, edit docker-compose.yml, uncommenting the corresponding entry under volumes:  
+copy directorys inside docker that have changed (templates, system/modules) to your local contao_data folder, e.g.  
+`docker cp contao2:/var/www/html/templates ./contao_data`  
+once done, you can stop docker, edit docker-compose.yml, uncomment the corresponding entry under volumes:  
 then, upon docker restart, you will have your latest changes in templates in place.  
 
 Additional note for those who want to move an existing Project to docker:  
