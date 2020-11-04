@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  web:
+    image: contao4.x:latest 
+    container_name: contao-web
+    ports:
+      - "80:80"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    volumes:
+      - contao_html_content:/var/www/html
+      #   be sure to NOT uncomment the following 2 lines BEFORE having completed the Installation - you will get an Error 500 otherwise !
+      #- ./contao_data/files:/var/www/html/files
+      #- ./contao_data/templates:/var/www/html/templates
+
+  mysql:
+    image: mysql:5.7
+    container_name: contao-mysql
+    volumes:
+      - ./mysql_data/:/var/lib/mysql/
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: contao
+      MYSQL_USER: contao
+      MYSQL_PASSWORD: contao
+
+  phpmyadmin:
+    image: nazarpc/phpmyadmin
+    container_name: contao-pma
+    ports: 
+      - "8888:80"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+
+volumes:
+  contao_html_content:
