@@ -18,7 +18,7 @@ this will save the generated image to the file contao4.9.tar - you can then load
 The easiest way to do this is to use the provided file docker-compose.yml with just running:  
 `docker-compose up -d`
 
-After starting the image, the installation of contao has to be completed via the standard installation tool. In the 4.4-manager variant, the manager has to be called on the address http://localhost:80/contao-manager.phar.php as mentioned in the installation manual of the contao menager.
+After starting the image, the installation of contao has to be completed via the standard installation tool. In the 4.9-manager variant, the manager has to be called on the address http://localhost:80/contao-manager.phar.php as mentioned in the installation manual of the contao menager.
 
 Currently available are the following version / tags:
 
