@@ -2,8 +2,8 @@ version: '2'
 
 services:
   web:
-    image: contao4.x:latest 
-    container_name: contao-web
+    image: contao-xdebug:latest 
+    container_name: contao-xdebug
     ports:
       - "80:80"
     depends_on:
@@ -12,9 +12,13 @@ services:
       - mysql
     volumes:
       - contao_html_content:/var/www/html
-      #   be sure to NOT uncomment the following 2 lines BEFORE having completed the Installation - you will get an Error 500 otherwise !
+      # the following 2 are needed for xdebug
+      - ./logs/xdebug:/logs/xdebug
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      #   be sure to NOT uncomment the following lines BEFORE having completed the Installation - you will get an Error 500 otherwise !
       #- ./contao_data/files:/var/www/html/files
       #- ./contao_data/templates:/var/www/html/templates
+      #- ./contao_data/system/modules:/var/www/html/system/modules
 
   mysql:
     image: mysql:5.7
