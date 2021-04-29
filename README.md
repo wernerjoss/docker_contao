@@ -9,7 +9,7 @@ Building and running follows the general rules for Docker Images, however, this 
 
 1. build and tag an image from the provided Dockerfile:
 cd to the directory where the Dockerfile resides and then do  
-`docker build -t contao4.x:latest .`
+`docker build -t contao4.9:latest .`
 2. save the generated image:  
 `docker image save contao4.9:latest -o contao4.9.tar`  
 this will save the generated image to the file contao4.9.tar - you can then load this later without having to re-build in case you deleted it in the meantime.
@@ -22,6 +22,6 @@ After starting the image, the installation of contao has to be completed via the
 
 Currently available are the following version / tags:
 
-4.9-manager: manager installation variant of the 4.9 contao release - you can also install 4.4 LTS, the latest contained contao-manager can do this !  
-3.5.40: this is the last Contao 3.5 Version, with PHP 7.2 on Debian Buster  
-2.11: old Contao 2.11.17, PHP 5.4/Mysql 5.5, Debian jessie, for legacy Projects
+- 4.9-manager: manager installation variant of the 4.9 contao release - you can also install 4.4 LTS, the latest contained contao-manager can do this !  
+- 3.5.40: this is the last Contao 3.5 Version, with PHP 7.2 on Debian Buster  
+- 2.11: old Contao 2.11.17, PHP 5.4/Mysql 5.5, Debian jessie, for legacy Projects
