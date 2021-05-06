@@ -22,6 +22,6 @@ After starting the image, the installation of contao has to be completed via the
 
 Currently available are the following version / tags:
 
-- 4.9-manager: manager installation variant of the 4.9 contao release - you can also install 4.4 LTS, the latest contained contao-manager can do this !  
+- 4.9-manager: manager installation variant of the 4.9 contao release - note you can no more install 4.4 LTS, the latest contained contao-manager will prevent this !  
 - 3.5.40: this is the last Contao 3.5 Version, with PHP 7.2 on Debian Buster  
 - 2.11: old Contao 2.11.17, PHP 5.4/Mysql 5.5, Debian jessie, for legacy Projects

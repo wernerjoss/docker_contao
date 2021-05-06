@@ -1,7 +1,8 @@
+# derived from https://github.com/hojak/docker_contao/tree/master/4.4-manager
 FROM php:7.3-apache
 
-LABEL version="0.1.3" \
-	description="Docker Image for a contao installation version 4.x including Xdebug for Plugin develpment" \
+LABEL version="0.1.4" \
+	description="Docker Image for a contao installation version 4.x including Xdebug for Plugin development" \
 	maintainer="Werner Joss <w.joss@lpc.de>"
 
 # install the PHP extensions we need
@@ -20,7 +21,8 @@ RUN set -ex; \
 		zlib1g-dev \
 		libzip4 \
 		libzip-dev \
-    	vim \
+		unzip \
+		vim \
 		&& docker-php-ext-install zip \
     ; \
 	apt-get clean; \
@@ -53,6 +55,10 @@ RUN set -ex; \
         perl -pi -e "s#/var/www/html#/var/www/html/web#" /etc/apache2/sites-available/default-ssl.conf ;\
 	# set php timezone
 	echo "date.timezone = 'Europe/Berlin'\n" >> /usr/local/etc/php/php.ini
+
+# add composer, might be needed
+RUN set -ex; \	
+	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN set -ex; \
 	mkdir /var/www/html/web ;\
