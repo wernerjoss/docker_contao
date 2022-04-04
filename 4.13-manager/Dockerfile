@@ -2,7 +2,7 @@
 FROM php:7.4-apache
 
 LABEL version="0.1.4" \
-	description="Docker Image for a contao installation version 4.x including Xdebug for Plugin development" \
+	description="Docker Image for a contao installation version 4.13" \
 	maintainer="Werner Joss <w.joss@lpc.de>"
 
 # install the PHP extensions we need
