@@ -2,23 +2,24 @@ version: '2'
 
 services:
   web:
-    image: contao4.13:latest 
-    container_name: contao413
+    image: contao4.13:latest
+    container_name: c5
     ports:
-      - "8081:80"
+      - "80:80"
     depends_on:
       - mysql
     links:
       - mysql
     volumes:
-      - contao_html_content413:/var/www/html
+      - html_content:/var/www/html
+      # the following 2 are needed for xdebug
       #   be sure to NOT uncomment the following lines BEFORE having completed the Installation - you will get an Error 500 otherwise !
-      #- ./contao_data/files:/var/www/html/files
-      #- ./contao_data/templates:/var/www/html/templates
+      - ./contao_data/files:/var/www/html/files
+      - ./contao_data/templates:/var/www/html/templates
 
   mysql:
-    image: mysql:8.0    #   optional: latest
-    container_name: contao-mysql
+    image: mariadb:10.4
+    container_name: contao-mysql-c5
     environment:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DATABASE: contaodb
@@ -38,4 +39,4 @@ services:
       - mysql
 
 volumes:
-  contao_html_content413:
+  html_content:

@@ -1,12 +1,11 @@
 # derived from https://github.com/hojak/docker_contao/tree/master/4.4-manager
 FROM php:7.4-apache
 
-LABEL version="0.1.4" \
-	description="Docker Image for a contao installation version 4.13" \
-	maintainer="Werner Joss <w.joss@lpc.de>"
+LABEL version="1.0.1" \
+	description="Docker Image for a contao installation version 4.x and 5.x \
+	maintainer="Werner Joss <hoernerfranz@gmail.com>"
 
 # install the PHP extensions we need
-# new for contao 4.13: libonig-dev
 RUN set -ex; \
 	\
 	apt-get update; \
@@ -30,21 +29,22 @@ RUN set -ex; \
 	apt-get clean; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
-	#	changes from contao 4.9 version:
-	#	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
-	#	does not work anymore ! 04/2022
+	#	pecl install mcrypt-1.0.1; \
 	pecl install mcrypt; \
 	ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/; \
 	export CFLAGS="-I/usr/src/php" ;\
 	docker-php-ext-configure gd --with-jpeg; \
 	docker-php-ext-install pdo pdo_mysql gd mysqli gmp bcmath zip xmlwriter xmlreader iconv bz2 mbstring soap intl 
+	#	alt aus contao 4.9 version:
+	#	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
+	#	geht nicht mehr ! 04/2022
 	
 RUN a2enmod rewrite expires
 
 RUN set -ex; \
 	# set the correct document root
-	perl -pi -e "s#/var/www/html#/var/www/html/web#" /etc/apache2/sites-available/000-default.conf ; \
-	perl -pi -e "s#/var/www/html#/var/www/html/web#" /etc/apache2/sites-available/default-ssl.conf ;\
+	perl -pi -e "s#/var/www/html#/var/www/html/public#" /etc/apache2/sites-available/000-default.conf ; \
+	perl -pi -e "s#/var/www/html#/var/www/html/public#" /etc/apache2/sites-available/default-ssl.conf ;\
 	# set php timezone
 	echo "date.timezone = 'Europe/Berlin'\n" >> /usr/local/etc/php/php.ini
 
@@ -53,10 +53,11 @@ RUN set -ex; \
 	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN set -ex; \
-	mkdir /var/www/html/web ;\
-	curl https://download.contao.org/contao-manager.phar -o /var/www/html/web/contao-manager.phar.php ;\
+	mkdir /var/www/html/public ;\
+	curl https://download.contao.org/contao-manager.phar -o /var/www/html/public/contao-manager.phar.php ;\
 	chown -R www-data:www-data  /var/www/html
 	 
 VOLUME /var/www/html
 
 CMD ["apache2-foreground"]
+#   CMD ["sh", "-c", "entrypoint.sh && apache2-foreground"] # entrypoint.sh must be first !
