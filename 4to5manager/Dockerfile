@@ -1,5 +1,5 @@
 # derived from https://github.com/hojak/docker_contao/tree/master/4.4-manager
-FROM php:7.4-apache
+FROM php:8.1-apache
 
 LABEL version="1.0.1" \
 	description="Docker Image for a contao installation version 4.x and 5.x \
